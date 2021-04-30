@@ -52,7 +52,7 @@ app.route("/edit/:id")
     .get((req, res) => {
         const id = req.params.id;
         TodoTask.find({}, (err, tasks) => {
-            res.render("todoEdit.js", { todoTasks: tasks, idTask: id });
+            res.render("todoEdit.ejs", { todoTasks: tasks, idTask: id });
         });
     })
     .post((req, res) => {
@@ -62,3 +62,12 @@ app.route("/edit/:id")
             res.redirect("/");
         });
     });
+
+// DELETE
+app.route("/remove/:id").get((req, res) => {
+    const id = req.params.id;
+    TodoTask.findByIdAndRemove(id, (err) => {
+        if (err) return res.send(500, err);
+        res.redirect("/");
+    });
+});
