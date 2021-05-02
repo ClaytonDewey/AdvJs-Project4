@@ -24,12 +24,12 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
 });
 
 // view engine configuration
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
 // GET METHOD
 app.get("/", (req, res) => {
     TodoTask.find({}, (err, tasks) => {
-        res.render("todo.ejs", { todoTasks: tasks });
+        res.render("todo.pug", { todoTasks: tasks });
     });
 });
 
@@ -52,7 +52,7 @@ app.route("/edit/:id")
     .get((req, res) => {
         const id = req.params.id;
         TodoTask.find({}, (err, tasks) => {
-            res.render("todoEdit.ejs", { todoTasks: tasks, idTask: id });
+            res.render("todoEdit.pug", { todoTasks: tasks, idTask: id });
         });
     })
     .post((req, res) => {
